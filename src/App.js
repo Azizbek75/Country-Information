@@ -11,6 +11,7 @@ const App = () => {
   const lastIndex = currentPage*countPage;
   const firstIndex = lastIndex - countPage;
   const newData = data.slice(firstIndex,lastIndex);
+  const [search,setSearch] = useState('');
 
   useEffect(()=>{
     const get = async() => {
@@ -23,10 +24,17 @@ const App = () => {
 
   const click = pageNumber => setCurrentPage(pageNumber);
   
+  const searchItem = newData.filter(item=>{
+    return ((item.name).toLowerCase()).includes(search.toLowerCase())
+  })
+
+   console.log(newData)
+
   return (
     <React.Fragment>
       <div className="container "> 
-        <h1 className="my-4 ms-4 text-primary">Countries Information</h1>
+        <h1 className="my-4 ms-4 text-primary" >Countries Information</h1>
+        <input type="search" className="form-control my-3 w-25" placeholder="Search country..." onChange={(e)=>setSearch(e.target.value)}/>
           <table className="table table-striped table-hover table-bordered text-center w-100">
              <thead>
               <tr>
@@ -42,7 +50,7 @@ const App = () => {
              </thead>
              <tbody className="">
                {
-                 newData.map((value,index)=>(
+                 searchItem.map((value,index)=>(
                    <Country data={value} index={index}/>
                  ))
                }

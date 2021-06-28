@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 
 const Country = ({data,index}) => {
-
     return (
         <tr>
             <td>{index+1}</td>    
